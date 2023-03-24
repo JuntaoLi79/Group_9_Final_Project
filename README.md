@@ -46,13 +46,14 @@ Database: MySQL/SQLite
 
 Hosting: Hostinger
 ##Team Members 👥
-Lane Brantley
 
-Joseph Petrongelli
+Lane Brantley 🛣️
 
-Shane Li 
+Joseph Petrongelli 🕵️‍♂️
 
-Sabin Shrestha (Frontend Developer)
+Shane Li  🏮
 
-Youness Badr 
+Sabin Shrestha 🏔️
+
+Youness Badr 🌊
 
