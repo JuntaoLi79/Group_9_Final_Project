@@ -1,6 +1,7 @@
 #Travel Tracker App using React and Flask 🧭
 
 ##Introduction 😊
+
 The Travel Tracker App called **Waestem** is a web application that empowers users to keep track of their travels and share with others. We aim to provide a robust platform for travelers to document their trips with multimedia like photos, text, and location data. Users can view their posts, comment, like, and share them with friends and family. The app will be built using Flask and React.
 ##Problem Statement 🚩
 Many travelers have a hard time keeping track of their trips and remembering the details of their experiences. Furthermore, it can be challenging to share those experiences with others in a meaningful way. The Travel Tracker App solves these problems by providing an easy-to-use platform for travelers to document their trips, including photos, text, and location data. This app allows users to preserve their memories and share them with others.
