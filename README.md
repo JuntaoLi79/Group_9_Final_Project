@@ -11,7 +11,7 @@ The target audience for the Travel Tracker App is anyone who loves to travel and
 ### Functional Requirements 📝
 * User registration and login (authentication)
 * Create, edit, and delete travel entries
-* bility to add photos, text, and location data to travel entries
+* Ability to add photos, text, and location data to travel entries
 * View travel history and statistics
 * Search for travel entries by location or keyword
 * Share travel entries with others via social media
