@@ -1,22 +1,13 @@
-import React, {useState, useEffect} from 'react'
-
+import React from 'react';
+import React, {useEffect} from 'react';
 function App() {
-    const [data, setData] = useState([{}]) // initial value is an empty array
-    useEffect(() => { fetch("/members").then(res => res.json()).then(data => {setData(data);console.log(data)}) }, [])
+  const navigate = useNavigate();
   return (
-    
-    <div>
+<Routes>
+      <Route path="login" element={<Login />} />
 
-    {
-        (typeof data.members === 'undefined') ? (<p>loading...</p>) : (
-            data.members.map((member, index) => (
-                <p key={index}> {member}</p>
-            ))
-            )
-    
-        }
-    </div>
+    </Routes>
+  );
+}
 
-        )
-    }
-export default App
+export default App;
