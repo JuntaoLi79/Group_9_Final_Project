@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Login';
+import CreatePost from './components/CreatePost';
 import Home from './components/Home';
-import UserProfile from './components/UserProfile';
+import Profiles from './components/Profiles';
 
 const App= () => {
   return (
@@ -10,7 +11,8 @@ const App= () => {
       <Routes>
         <Route path="login" element={<Login />} />
         <Route path="/*" element={<Home />} />
-        <Route path="profile" element={<UserProfile />} />
+        <Route path="profiles" element={<Profiles />} />
+        <Route path="create_post" element={<CreatePost />} />
       </Routes>
     </Router>
   );
