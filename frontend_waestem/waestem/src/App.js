@@ -1,22 +1,19 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './components/Login';
+import Home from './components/Home';
+import UserProfile from './components/UserProfile';
 
-function App() {
-    const [data, setData] = useState([{}]) // initial value is an empty array
-    useEffect(() => { fetch("/members").then(res => res.json()).then(data => {setData(data);console.log(data)}) }, [])
+const App= () => {
   return (
-    
-    <div>
+    <Router>
+      <Routes>
+        <Route path="login" element={<Login />} />
+        <Route path="/*" element={<Home />} />
+        <Route path="profile" element={<UserProfile />} />
+      </Routes>
+    </Router>
+  );
+}
 
-    {
-        (typeof data.members === 'undefined') ? (<p>loading...</p>) : (
-            data.members.map((member, index) => (
-                <p key={index}> {member}</p>
-            ))
-            )
-    
-        }
-    </div>
-
-        )
-    }
-export default App
+export default App;
