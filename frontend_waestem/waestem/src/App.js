@@ -1,12 +1,18 @@
-import React from 'react';
 import React, {useEffect} from 'react';
-function App() {
-  const navigate = useNavigate();
-  return (
-<Routes>
-      <Route path="login" element={<Login />} />
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './components/Login';
+import Home from './components/Home';
+import UserProfile from './components/UserProfile';
 
-    </Routes>
+const App= () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="login" element={<Login />} />
+        <Route path="/*" element={<Home />} />
+        <Route path="profile" element={<UserProfile />} />
+      </Routes>
+    </Router>
   );
 }
 
