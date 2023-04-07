@@ -48,13 +48,13 @@ Database: MySQL/SQLite
 Hosting: Hostinger
 ## Team Members 👥
 
-Lane Brantley 🛣️
+Lane Brantley (Search Algorithm)🛣️
 
-Joseph Petrongelli 🕵️‍♂️
+Joseph Petrongelli (Media Manager)🕵️‍♂️
 
-Shane Li  🏮
+Shane Li (Backend Tech Lead) 🏮
 
-Sabin Shrestha 🏔️
+Sabin Shrestha (Frontend Tech Lead)🏔️
 
-Youness Badr 🌊
+Youness Badr (Recommendation Algorithm)🌊
 
