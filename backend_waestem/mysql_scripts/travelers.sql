@@ -1,9 +1,12 @@
-USE u408394733_waestem;
+CREATE TABLE travelers (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  img VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id)
+);
+
 SELECT * FROM u408394733_waestem.travelers;
-SELECT COLUMN_NAME, DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where table_schema = 'u408394733_waestem' and table_name = 'travelers';
-INSERT INTO travelers (id, name, img, email) VALUES (1, 'John Doe', 'https://picsum.photos/200/300', 'johndoe@example.com');
-SELECT * FROM u408394733_waestem.travelers;
-ALTER TABLE travelers ADD UNIQUE (email);
 -- -------------------------------------
 CREATE TABLE posts (
   id INT NOT NULL AUTO_INCREMENT,
@@ -14,5 +17,3 @@ CREATE TABLE posts (
   PRIMARY KEY (id)
 );
 SELECT * FROM u408394733_waestem.posts;
-DELETE FROM u408394733_waestem.posts
-WHERE id = 1;
