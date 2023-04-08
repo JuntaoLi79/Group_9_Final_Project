@@ -1,15 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+const { Configuration, OpenAIApi } = require("openai");
 
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(configuration);
 const CreatePost = () => {
     const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
   const [location, setLocation] = useState('');
+  const navigate = useNavigate();
+  const [recommendations, setRecommendations] = useState('');
 
+  const handleRecommendation = async (e) => {
+    e.preventDefault();
+   if(location.length===0){
+      alert("location is required")
+      return
+  }
+    const prompt = `What places do you recommend for me to go in/around ${location}?`;
+    
+    const response = await openai.createCompletion()({
+      model: "text-davinci-003",
+      prompt: prompt,
+    }) 
+      console.log(response.data.choices[0].text);
+      setRecommendations(response.data.choices[0].text);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    
     if(title.length===0){
         alert("Title is required")
         return
@@ -27,20 +52,26 @@ const CreatePost = () => {
         return
     }
 
+
     const formData = new FormData();
     formData.append('title', title);
     formData.append('description', description);
     formData.append('image', image);
     formData.append('location', location);
-
+    console.log(formData)
     try {
+      console.log(formData);
       await axios.post('http://localhost:5000/posts', formData);
       alert('Post created successfully!');
+      navigate('/pin_board');
     } catch (error) {
       console.log(error);
       alert('Something went wrong!');
     }
   };
+  useEffect(() => {
+    console.log({ title, description, image, location });
+  }, [title, description, image, location]);
 
   return (
     <div className="container mx-auto flex flex-col items-center justify-center h-screen">
@@ -101,6 +132,14 @@ const CreatePost = () => {
           Submit
         </button>
       </form>
+        <button
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+          onClick={handleRecommendation}
+        >
+          AI Recommendation
+        </button>
+        {recommendations && <p>{recommendations}</p>}
     </div>
   )
 }
