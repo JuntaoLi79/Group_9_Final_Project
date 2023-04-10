@@ -3,6 +3,20 @@
 ## Introduction 😊
 
 The Travel Tracker App called **Waestem** is a web application that empowers users to keep track of their travels and share with others. We aim to provide a robust platform for travelers to document their trips with multimedia like photos, text, and location data. Users can view their posts, comment, like, and share them with friends and family. The app will be built using Flask and React.
+
+## **Set Up (Important)** 🛎️
+
+### V 1.0
+
+Watch this [demo](https://www.youtube.com/watch?v=xtMTNSQyIXE&t=1s) here to walk over this project with Shane. Here are some steps you can do to make sure you can run the project (do all the following commands under the root directory of the project inside the terminal):
+1. `cd` to `Group_9_Final_Project\frontend_waestem\waestem`, and run `npm install`. To start the react app, do `npm run start`. If it prompts you that `npm` is not recognized as an internal or external command, do `npm install npm@latest -g`. Also make sure that you have installed LTS version of node.js through this website: https://nodejs.org/en/download/.
+2. `cd` to `Group_9_Final_Project\backend_waestem\flask-server`, and run `pip install -r requirements.txt`, this will install all the dependencies. To start the flask server, do `python server.py`. If it prompts you that `xxx modules not found`, do `py -3 -m pip install <module_name>`.
+3. All the MySQL queries are in `backend_waestem/sql_scripts` folder. But you shouldn't need to run the scripts at all because our database is remote. The credentials are also provided on the top of the `server.py`. Those data are already in the database. 
+4. All the packages we use are in the `requirements.txt` file for backend and `package.json` for frontend. Here is a google doc as a [documentation](https://docs.google.com/document/d/1LyGUcAj2abiSfcHy9AaZcRdckJCR2NslV7uBqDWKFAs/edit?usp=sharing) for additional information.
+
+
+The above steps should be enough to run the project. If you have any questions, please feel free to reach out to Shane  <jli79@uncc.edu>.
+
 ## Problem Statement 🚩
 Many travelers have a hard time keeping track of their trips and remembering the details of their experiences. Furthermore, it can be challenging to share those experiences with others in a meaningful way. The Travel Tracker App solves these problems by providing an easy-to-use platform for travelers to document their trips, including photos, text, and location data. This app allows users to preserve their memories and share them with others.
 ## Target Audience 🦗
@@ -46,15 +60,16 @@ Library/Package: MasonryLayout, react-router-dom, GoogleLogin, etc.
 Database: MySQL/SQLite
 
 Hosting: Hostinger
+
 ## Team Members 👥
 
-Lane Brantley 🛣️
+Lane Brantley (Search Algorithm)🛣️
 
-Joseph Petrongelli 🕵️‍♂️
+Joseph Petrongelli (Media Manager)🕵️‍♂️
 
-Shane Li  🏮
+Shane Li (Backend Tech Lead) 🏮
 
-Sabin Shrestha 🏔️
+Sabin Shrestha (Frontend Tech Lead)🏔️
 
-Youness Badr 🌊
+Youness Badr (Recommendation Algorithm)🌊
 
