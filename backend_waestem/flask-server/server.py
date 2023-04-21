@@ -5,7 +5,7 @@ from flask_cors import CORS
 from MySQLdb import IntegrityError
 
 app = Flask("Waestem")
-CORS(app)
+CORS(app, resources={r"*": {"origins": "*"}})
 app.config['MYSQL_HOST'] = 'sql566.main-hosting.eu'
 app.config['MYSQL_USER'] = 'u408394733_double'
 app.config['MYSQL_PASSWORD'] = 'Mark321654.'
@@ -50,10 +50,11 @@ def posts():
 def userUp():
     if request.method == 'POST':
         data = request.get_json()
+        print("This is data ")
         print(data)
-        name = data['e'][0]
-        image = data['e'][1]
-        email = data['e'][2]
+        name = data['name']
+        image = data['img']
+        email = data['email']
         cur = mysql.connection.cursor()
         try:
             cur.execute("INSERT INTO travelers (name, img,email) VALUES (%s, %s, %s)", (name, image, email))

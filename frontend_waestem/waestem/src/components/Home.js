@@ -5,7 +5,7 @@ import logo from '../images/logo1.png';
 const getRandomVideo = async () => {
   const response = await axios.get('https://api.pexels.com/videos/search', {
     headers: {
-      Authorization: "QjIq8U1oGiRBery44atJYLbeKa99MgNpoCeDy2ucU7Qdjzu7HZ3d89t9",
+      Authorization: "Bearer QjIq8U1oGiRBery44atJYLbeKa99MgNpoCeDy2ucU7Qdjzu7HZ3d89t9",
     },
     params: {
       query: 'travel',

@@ -3,11 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const { Configuration, OpenAIApi } = require("openai");
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
+const OPENAI_API_KEY = "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";
 const CreatePost = () => {
+  const[typing, setTyping] = useState(false);
     const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
@@ -21,14 +19,38 @@ const CreatePost = () => {
       alert("location is required")
       return
   }
-    const prompt = `What places do you recommend for me to go in/around ${location}?`;
+   if(description.length===0){
+      alert("Description is required")
+      return
+  }
+  setTyping(true);
+    const prompt = `What places do you recommend for me to go in/around ${location}? Based on my description: ${description}`;
+    const systemMessage = {role: "system", content: "Be like a travel agent and explain everything clearly that is related to traveling."};
+    let apiMessage = {role: "user", content: prompt};
+    let apiRequestBody = {
+      "model": "gpt-3.5-turbo",
+      "messages": [
+        systemMessage,
+        apiMessage],
+    }
+    await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers:{
+        "Authorization": "Bearer " + OPENAI_API_KEY,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(apiRequestBody)
+    }).then((data)=>{
+      return data.json()
+    }).then((response)=>{
+      console.log(response);
+      setRecommendations(response.choices[0].message.content);
+    }
+    )
+
     
-    const response = await openai.createCompletion()({
-      model: "text-davinci-003",
-      prompt: prompt,
-    }) 
-      console.log(response.data.choices[0].text);
-      setRecommendations(response.data.choices[0].text);
+      
+      
   };
 
   const handleSubmit = async (e) => {
@@ -139,6 +161,7 @@ const CreatePost = () => {
         >
           AI Recommendation
         </button>
+        {typing ? <p>Thinking... (It will take a few minutes)</p> : null }
         {recommendations && <p>{recommendations}</p>}
     </div>
   )
