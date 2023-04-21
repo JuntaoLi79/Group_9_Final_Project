@@ -33,9 +33,6 @@ const PinBoard = () => {
 
   return (
     <div className="relative">
-      <button onClick={handleGoBack} className="fixed top-0 left-0 p-4 text-white bg-blue-500 rounded-full shadow-md">
-        <FaHome size={24} />
-      </button>
       <div className="mx-auto max-w-lg pt-4">
         <input
           type="text"
@@ -45,20 +42,21 @@ const PinBoard = () => {
           placeholder="Search for pins"
         />
       </div>
-      <button onClick={handleGoCreate} className="absolute top-0 right-0 mt-4 mr-4 px-4 py-2 text-white bg-red-500 rounded-md shadow-md">
-          Create Post
-        </button>
-      <div className="grid grid-cols-3 gap-4 mt-8" style={{ gridAutoRows: 'minmax(100px, auto)', gridAutoFlow: 'dense' }}>
+      <div className="grid grid-cols-3 gap-8 mt-8">
         {filteredPins.map((pin) => (
-          <div
-            key={pin.id}
-            className="bg-white rounded-md shadow-md"
-            style={{ gridColumnEnd: `span ${Math.ceil(pin.image_height / pin.image_width * 3)}` }}
-          >
-            <img src={`data:image/png;base64,${pin.image}`} alt={pin.title} />
-            <div className="p-4">
-              <h2 className="font-bold text-lg">{pin.title}</h2>
-              <p className="text-gray-500 text-sm">{pin.location}</p>
+          <div key={pin.id} className="bg-white rounded-md shadow-md">
+            <div className="relative">
+              <img src={`data:image/png;base64,${pin.image}`} alt={pin.title} className="w-full rounded-t-md" />
+              <img
+                className="rounded-full border-2 border-white absolute bottom-0 left-0 ml-4 mb-4"
+                src={pin.user_image}
+                alt={pin?.username}
+                style={{ width: '40px', height: '40px' }}
+              />
+            </div>
+            <div className="px-4 py-2">
+              <h2 className="font-bold text-lg mb-2">{pin.title}</h2>
+              <p className="text-gray-500 text-sm mb-1">{pin.location}</p>
               <p className="text-gray-700 text-sm">{pin.description}</p>
             </div>
           </div>

@@ -5,17 +5,18 @@ import logo from '../images/logo1.png';
 const getRandomVideo = async () => {
   const response = await axios.get('https://api.pexels.com/videos/search', {
     headers: {
-      Authorization: "Bearer QjIq8U1oGiRBery44atJYLbeKa99MgNpoCeDy2ucU7Qdjzu7HZ3d89t9",
+      Authorization: "QjIq8U1oGiRBery44atJYLbeKa99MgNpoCeDy2ucU7Qdjzu7HZ3d89t9",
     },
     params: {
       query: 'travel',
       orientation: 'landscape',
-      per_page: 1,
+      per_page: 10,
       min_width: 1920,
       min_height: 1080,
     },
   });
-  return response.data.videos[0].video_files[0].link;
+  const randomIndex = Math.floor(Math.random() * response.data.videos.length);
+  return response.data.videos[randomIndex].video_files[0].link; 
 };
 
 const Home = () => {

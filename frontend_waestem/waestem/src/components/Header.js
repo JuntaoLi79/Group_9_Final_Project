@@ -54,7 +54,8 @@ const Header = () => {
             <img
               src={user.img}
               alt="User Profile"
-              className="w-10 h-10 rounded-full"
+              className="w-10 h-10 rounded-full cursor-pointer"
+              onClick={() => navigate(`/user/${user.name}`)}
             />
           </div>
         ) : (

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-const { Configuration, OpenAIApi } = require("openai");
+import UserContext from './UserContext';
 
 const OPENAI_API_KEY = "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";
 const CreatePost = () => {
@@ -12,8 +12,9 @@ const CreatePost = () => {
   const [location, setLocation] = useState('');
   const navigate = useNavigate();
   const [recommendations, setRecommendations] = useState('');
+  const { user } = useContext(UserContext);
 
-  const handleRecommendation = async (e) => {
+const handleRecommendation = async (e) => {
     e.preventDefault();
    if(location.length===0){
       alert("location is required")
@@ -80,6 +81,8 @@ const CreatePost = () => {
     formData.append('description', description);
     formData.append('image', image);
     formData.append('location', location);
+    formData.append('username', user.name);
+    formData.append('user_image', user.img);
     console.log(formData)
     try {
       console.log(formData);
@@ -95,6 +98,11 @@ const CreatePost = () => {
     console.log({ title, description, image, location });
   }, [title, description, image, location]);
 
+  if (!user) {
+    alert('You need to login first!');
+    navigate('/login');
+    return null;
+  }
   return (
     <div className="container mx-auto flex flex-col items-center justify-center h-screen">
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col items-center">
