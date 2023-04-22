@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import UserContext from './UserContext';
 
-const OPENAI_API_KEY = "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";
+
+const OPENAI_API_KEY_CURRENT = process.env.REACT_APP_OPENAI_API_KEY;
+console.log('OPENAI_API_KEY_CURRENT:', OPENAI_API_KEY_CURRENT);
 const CreatePost = () => {
   const[typing, setTyping] = useState(false);
     const [title, setTitle] = useState('');
@@ -28,6 +30,7 @@ const CreatePost = () => {
   }
 const handleRecommendation = async (e) => {
     e.preventDefault();
+
    if(location.length===0){
       alert("location is required")
       return
@@ -50,7 +53,7 @@ const handleRecommendation = async (e) => {
     await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers:{
-        "Authorization": "Bearer " + OPENAI_API_KEY,
+        "Authorization": "Bearer " + OPENAI_API_KEY_CURRENT,
         "Content-Type": "application/json"
       },
       body: JSON.stringify(apiRequestBody)
@@ -72,7 +75,6 @@ const handleRecommendation = async (e) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     
     if(title.length===0){
         alert("Title is required")
