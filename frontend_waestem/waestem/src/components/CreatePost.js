@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import UserContext from './UserContext';
 
-const OPENAI_API_KEY = "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";
+const OPENAI_API_KEY = "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";
 const CreatePost = () => {
   const[typing, setTyping] = useState(false);
     const [title, setTitle] = useState('');
@@ -14,6 +14,18 @@ const CreatePost = () => {
   const [recommendations, setRecommendations] = useState('');
   const { user } = useContext(UserContext);
 
+  useEffect(() => {
+    if (!user) {
+      alert('You need to login first!');
+      navigate('/login');
+    }
+  }, []);
+  useEffect(() => {
+    console.log({ title, description, image, location });
+  }, [title, description, image, location]);
+  if (!user) {
+    return null;
+  }
 const handleRecommendation = async (e) => {
     e.preventDefault();
    if(location.length===0){
@@ -34,6 +46,7 @@ const handleRecommendation = async (e) => {
         systemMessage,
         apiMessage],
     }
+  try{
     await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers:{
@@ -47,7 +60,10 @@ const handleRecommendation = async (e) => {
       console.log(response);
       setRecommendations(response.choices[0].message.content);
     }
-    )
+    )}catch(error){
+      alert("Something went wrong!")
+      console.log(error);
+    }
 
     
       
@@ -86,7 +102,7 @@ const handleRecommendation = async (e) => {
     console.log(formData)
     try {
       console.log(formData);
-      await axios.post('http://localhost:5000/posts', formData);
+      await axios.post(' http://82.180.160.49/posts', formData);
       alert('Post created successfully!');
       navigate('/pin_board');
     } catch (error) {
@@ -94,15 +110,8 @@ const handleRecommendation = async (e) => {
       alert('Something went wrong!');
     }
   };
-  useEffect(() => {
-    console.log({ title, description, image, location });
-  }, [title, description, image, location]);
 
-  if (!user) {
-    alert('You need to login first!');
-    navigate('/login');
-    return null;
-  }
+
   return (
     <div className="container mx-auto flex flex-col items-center justify-center h-screen">
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col items-center">

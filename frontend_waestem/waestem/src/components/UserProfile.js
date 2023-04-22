@@ -20,13 +20,13 @@ const UserProfile = () => {
     }, [user, navigate])
   
     useEffect(() => {
-      axios.get(`http://127.0.0.1:5000/posts?username=${user?.name}`).then((response) => {
+      axios.get(`http://82.180.160.49/posts?username=${user?.name}`).then((response) => {
         setPins(response.data);
       });
     }, [user]);
     const handleDelete = async (id) => {
       try {
-        await axios.delete(`http://127.0.0.1:5000/posts/${id}`);
+        await axios.delete(`http://82.180.160.49//posts/${id}`);
         setPins(pins.filter((pin) => pin.id !== id));
         alert('Post deleted successfully!')
       } catch (error) {

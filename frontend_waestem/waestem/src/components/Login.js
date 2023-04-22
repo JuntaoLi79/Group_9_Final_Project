@@ -12,7 +12,7 @@ const Login = () => {
   const getRandomVideo = async () => {
     const response = await axios.get('https://api.pexels.com/videos/search', {
       headers: {
-        Authorization: "QjIq8U1oGiRBery44atJYLbeKa99MgNpoCeDy2ucU7Qdjzu7HZ3d89t9",
+        Authorization: `Bearer ${process.env.REACT_APP_PEXELS_API_KEY}`,
       },
       params: {
         query: 'travel',
@@ -28,7 +28,7 @@ const Login = () => {
 
   const handlePost = async (userObject) => {
     const { name, picture: img, email } = userObject;
-    const response = await axios.post('http://127.0.0.1:5000/userUp', { name, img, email });
+    const response = await axios.post(' http://82.180.160.49/userUp', { name, img, email });
     setData(response.data);
     console.log(data);
   };
@@ -41,6 +41,7 @@ const Login = () => {
     var email = userObject.email;
     setUser({ name, img, email });
     handlePost(userObject);
+    navigate(`/user/${name}`);
   }
 
   useEffect(() => {
@@ -64,7 +65,7 @@ const Login = () => {
         },
       }
     );
-  }, []);
+  });
   useEffect(() => {
     const loadVideo = async () => {
       const url = await getRandomVideo();

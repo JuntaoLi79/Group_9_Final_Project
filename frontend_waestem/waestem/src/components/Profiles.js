@@ -8,7 +8,7 @@ const Profiles = () => {
   const { CurrentUser } = useContext(UserContext);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/userUp')
+    fetch(' http://82.180.160.49/userUp')
       .then(response => response.json())
       .then(data => {
         setUsers(data);
