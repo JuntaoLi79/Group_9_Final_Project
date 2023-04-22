@@ -4,9 +4,16 @@
 
 The Travel Tracker App called **Waestem** is a web application that empowers users to keep track of their travels and share with others. We aim to provide a robust platform for travelers to document their trips with multimedia like photos, text, and location data. Users can view their posts, comment, like, and share them with friends and family. The app will be built using Flask and React.
 
-## **Set Up (Important)** 🛎️
+## ** __Set Up & Notes__ ** 🛎️
 
-### V 1.0
+### V 2.0 🎑
+Watch this [delieverable 2](https://www.youtube.com/watch?v=VvlTre4nJ5o&t=3s) here to walk over this project with Shane. The following are some general notes.
+1. The backend now is deployed to public IP address at http://82.180.160.49/. So you don't need to run the backend locally. The react app is also deployed at http://waestem.com/ as a preliminary version. But you still need to run the frontend locally to experience the authentication feature because the public application needs to be verified by Google.
+2. Please refer to the setup steps in the V 1.0 section below to run the frontend locally. It's not recommended to access the remote server because it takes some time to set up. But you can still replace all the backend request to a local request for `http://82.180.160.49/` to `htttp://localhost:5000/` if you want to run the backend locally.
+3. There are some hidden APIs, for example the video API is hidden in the .env file. But it should not have huge impact on the functionality of the App. If you want to run the App locally, you can just replace the API with your own API key. The OpenAI API is public in the file, so everyone should be able to use it.
+
+
+### V 1.0 🥦
 
 Watch this [demo](https://www.youtube.com/watch?v=xtMTNSQyIXE&t=1s) here to walk over this project with Shane. Here are some steps you can do to make sure you can run the project (do all the following commands under the root directory of the project inside the terminal):
 1. `cd` to `Group_9_Final_Project\frontend_waestem\waestem`, and run `rm node_modules`, then `npm install`. To start the react app, do `npm run start`. If it prompts you that `npm` is not recognized as an internal or external command, do `npm install npm@latest -g`. Also make sure that you have installed LTS version of node.js through this website: https://nodejs.org/en/download/.
