@@ -10,7 +10,7 @@ The Travel Tracker App called **Waestem** is a web application that empowers use
 Watch this [delieverable 2](https://www.youtube.com/watch?v=VvlTre4nJ5o&t=3s) here to walk over this project with Shane. The following are some general notes.
 1. The backend now is deployed to public IP address at http://82.180.160.49/. So you don't need to run the backend locally. The react app is also deployed at http://waestem.com/ as a preliminary version. But you still need to run the frontend locally to experience the authentication feature because the public application needs to be verified by Google.
 2. Please refer to the setup steps in the V 1.0 section below to run the frontend locally. It's not recommended to access the remote server because it takes some time to set up. But you can still replace all the backend request to a local request for `http://82.180.160.49/` to `htttp://localhost:5000/` if you want to run the backend locally.
-3. There are some hidden APIs, for example the video API is hidden in the .env file. But it should not have huge impact on the functionality of the App. If you want to run the App locally, you can just replace the API with your own API key. The OpenAI API is public in the file, so everyone should be able to use it.
+3. API keys are hidden. If you want to test the API code locally, you need to access those API keys in our waestem [documentation](https://docs.google.com/document/d/1LyGUcAj2abiSfcHy9AaZcRdckJCR2NslV7uBqDWKFAs/edit?usp=sharing). Please don't upload the key to github, otherwise it will be automatically disabled. Once you have the key, just replace all the `process.env.REACT_APP_XXX` with the key in the code.
 
 
 ### V 1.0 🥦
