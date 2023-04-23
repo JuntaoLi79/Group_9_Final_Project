@@ -8,6 +8,7 @@ import PinBoard from './components/PinBoard';
 import UserContext from './components/UserContext';
 import Header from './components/Header';
 import UserProfile from './components/UserProfile';
+import ViewPost from './components/ViewPost';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="create_post" element={<CreatePost />} />
             <Route path="pin_board" element={<PinBoard />} />
             <Route path={`user/${user?.name}`}  element={<UserProfile />} />
+            <Route path="view_post" element={<ViewPost />} />
           </Routes>
         </Router>
       </main>

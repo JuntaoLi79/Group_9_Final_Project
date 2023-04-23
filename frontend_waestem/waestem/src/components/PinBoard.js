@@ -43,6 +43,11 @@ const PinBoard = () => {
     setSelectedPin(null);
   };
 
+  const handleClickedPost = (pin) => {
+    navigate('/view_post', { state: { pin } });
+  };
+
+
   return (
     <div className="relative">
       <div className="mx-auto max-w-lg pt-4">
@@ -56,7 +61,7 @@ const PinBoard = () => {
       </div>
       <div className="grid grid-cols-3 gap-8 mt-8">
         {filteredPins.map((pin) => (
-          <div key={pin.id} className="bg-white rounded-md shadow-md cursor-pointer" onClick={() => openModal(pin)}>
+          <div key={pin.id} className="bg-white rounded-md shadow-md cursor-pointer" onClick={() => handleClickedPost(pin)}>
             <div className="relative">
               <img src={`data:image/png;base64,${pin.image}`} alt={pin.title} className="w-full rounded-t-md" />
               <img
