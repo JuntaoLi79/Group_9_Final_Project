@@ -11,6 +11,7 @@ Watch this [delieverable 2](https://www.youtube.com/watch?v=VvlTre4nJ5o&t=3s) he
 1. The backend now is deployed to public IP address at http://82.180.160.49/. So you don't need to run the backend locally. The react app is also deployed at http://waestem.com/ as a preliminary version. But you still need to run the frontend locally to experience the authentication feature because the public application needs to be verified by Google.
 2. Please refer to the setup steps in the V 1.0 section below to run the frontend locally. It's not recommended to access the remote server because it takes some time to set up. But you can still replace all the backend request to a local request for `http://82.180.160.49/` to `htttp://localhost:5000/` if you want to run the backend locally.
 3. API keys are hidden. If you want to test the API code locally, you need to access those API keys in our waestem [documentation](https://docs.google.com/document/d/1LyGUcAj2abiSfcHy9AaZcRdckJCR2NslV7uBqDWKFAs/edit?usp=sharing). Please don't upload the key to github, otherwise it will be automatically disabled. Once you have the key, just replace all the `process.env.REACT_APP_XXX` with the key in the code.
+4. Add the following line to the `.env` file: `DANGEROUSLY_DISABLE_HOST_CHECK=true`. If there is no `.env` file, create one under the root directory of the project. This is to disable the host check for the react app. Otherwise, you will get an error when you run the react app locally.
 
 
 ### V 1.0 🥦
