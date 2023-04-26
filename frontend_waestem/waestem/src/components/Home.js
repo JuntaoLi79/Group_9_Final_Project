@@ -1,26 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import logo from '../images/logo1.png'; 
-const getRandomVideo = async () => {
-  const response = await axios.get('https://api.pexels.com/videos/search', {
-    headers: {
-      Authorization: "QjIq8U1oGiRBery44atJYLbeKa99MgNpoCeDy2ucU7Qdjzu7HZ3d89t9",
-    },
-    params: {
-      query: 'travel',
-      orientation: 'landscape',
-      per_page: 1,
-      min_width: 1920,
-      min_height: 1080,
-    },
-  });
-  return response.data.videos[0].video_files[0].link;
-};
-
+import logo from '../images/logo1.png';
+import background from '../images/Great-Wall-Of-China.png';
 const Home = () => {
-  const [videoUrl, setVideoUrl] = useState('');
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleViewPostsClick = () => {
     navigate('/pin_board');
@@ -29,23 +14,16 @@ const Home = () => {
   const handleCreatePostClick = () => {
     navigate('/create_post');
   };
+
   useEffect(() => {
-    const loadVideo = async () => {
-      const url = await getRandomVideo();
-      setVideoUrl(url);
-    };
-    loadVideo();
+    setIsLoading(false);
   }, []);
 
   return (
     <div className="relative h-screen">
-      <video
-        src={videoUrl}
-        autoPlay
-        muted
-        loop
-        className="absolute inset-0 object-cover w-full h-full"
-      ></video>
+ 
+ <img src={background} alt="background" style={{objectFit: 'cover', width: '100%', height: '100%', position: 'absolute', top: 0, left: 0}} />
+
       <div className="absolute inset-0 bg-black opacity-25"></div>
       <div className="absolute inset-0 flex flex-col justify-center items-center">
         <img src={logo} alt="logo" border="0" className="w-1/4" />

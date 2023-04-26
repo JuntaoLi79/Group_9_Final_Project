@@ -1,39 +1,80 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-const { Configuration, OpenAIApi } = require("openai");
+import UserContext from './UserContext';
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
+
+const OPENAI_API_KEY_CURRENT = process.env.REACT_APP_OPENAI_API_KEY;
+console.log('OPENAI_API_KEY_CURRENT:', OPENAI_API_KEY_CURRENT);
 const CreatePost = () => {
+  const[typing, setTyping] = useState(false);
     const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
   const [location, setLocation] = useState('');
   const navigate = useNavigate();
   const [recommendations, setRecommendations] = useState('');
+  const { user } = useContext(UserContext);
 
-  const handleRecommendation = async (e) => {
+  useEffect(() => {
+    if (!user) {
+      alert('You need to login first!');
+      navigate('/login');
+    }
+  }, []);
+  useEffect(() => {
+    console.log({ title, description, image, location });
+  }, [title, description, image, location]);
+  if (!user) {
+    return null;
+  }
+const handleRecommendation = async (e) => {
     e.preventDefault();
+
    if(location.length===0){
       alert("location is required")
       return
   }
-    const prompt = `What places do you recommend for me to go in/around ${location}?`;
+   if(description.length===0){
+      alert("Description is required")
+      return
+  }
+  setTyping(true);
+    const prompt = `What places do you recommend for me to go in/around ${location}? Based on my description: ${description}`;
+    const systemMessage = {role: "system", content: "Be like a travel agent and explain everything clearly that is related to traveling."};
+    let apiMessage = {role: "user", content: prompt};
+    let apiRequestBody = {
+      "model": "gpt-3.5-turbo",
+      "messages": [
+        systemMessage,
+        apiMessage],
+    }
+  try{
+    await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers:{
+        "Authorization": "Bearer " + OPENAI_API_KEY_CURRENT,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(apiRequestBody)
+    }).then((data)=>{
+      return data.json()
+    }).then((response)=>{
+      console.log(response);
+      setRecommendations(response.choices[0].message.content);
+    }
+    )}catch(error){
+      alert("Something went wrong!")
+      console.log(error);
+    }
+
     
-    const response = await openai.createCompletion()({
-      model: "text-davinci-003",
-      prompt: prompt,
-    }) 
-      console.log(response.data.choices[0].text);
-      setRecommendations(response.data.choices[0].text);
+      
+      
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     
     if(title.length===0){
         alert("Title is required")
@@ -58,10 +99,12 @@ const CreatePost = () => {
     formData.append('description', description);
     formData.append('image', image);
     formData.append('location', location);
+    formData.append('username', user.name);
+    formData.append('user_image', user.img);
     console.log(formData)
     try {
       console.log(formData);
-      await axios.post('http://localhost:5000/posts', formData);
+      await axios.post(' http://82.180.160.49/posts', formData);
       alert('Post created successfully!');
       navigate('/pin_board');
     } catch (error) {
@@ -69,9 +112,7 @@ const CreatePost = () => {
       alert('Something went wrong!');
     }
   };
-  useEffect(() => {
-    console.log({ title, description, image, location });
-  }, [title, description, image, location]);
+
 
   return (
     <div className="container mx-auto flex flex-col items-center justify-center h-screen">
@@ -139,6 +180,7 @@ const CreatePost = () => {
         >
           AI Recommendation
         </button>
+        {typing ? <p>Thinking... (It will take a few minutes)</p> : null }
         {recommendations && <p>{recommendations}</p>}
     </div>
   )

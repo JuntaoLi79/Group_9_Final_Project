@@ -16,4 +16,14 @@ CREATE TABLE posts (
   image LONGBLOB,
   PRIMARY KEY (id)
 );
+
+ALTER TABLE posts
+ADD user_image LONGBLOB,
+ADD username VARCHAR(255);
+
+
+
+ALTER TABLE posts MODIFY COLUMN user_image VARCHAR(255);
+
 SELECT * FROM u408394733_waestem.posts;
+
