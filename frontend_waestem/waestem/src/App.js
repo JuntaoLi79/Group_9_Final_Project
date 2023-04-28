@@ -9,7 +9,8 @@ import UserContext from './components/UserContext';
 import Header from './components/Header';
 import UserProfile from './components/UserProfile';
 import ViewPost from './components/ViewPost';
-
+import Privacy from './components/Privacy';
+import Footer from './components/Footer';
 const App = () => {
   const [user, setUser] = useState(null);
 
@@ -26,7 +27,9 @@ const App = () => {
             <Route path="pin_board" element={<PinBoard />} />
             <Route path={`user/${user?.name}`}  element={<UserProfile />} />
             <Route path="view_post" element={<ViewPost />} />
+            <Route path="privacy" element={<Privacy />} />
           </Routes>
+        <Footer/>
         </Router>
       </main>
     </UserContext.Provider>
