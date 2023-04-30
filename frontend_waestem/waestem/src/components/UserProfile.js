@@ -24,19 +24,21 @@ const UserProfile = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-        try {
-          const formattedUsername = username.replace(/ /g, '%20');
-          const userResponse = await axios.get(`https://douvledorm.com/userUp?username=${formattedUsername}`);
-          console.log('Fetching user data for:', username);
-          console.log('User data:', userResponse.data);
-          if (userResponse.data) {
-            setProfileImg(userResponse.data.img);
-          }
-
-        } catch (error) {
-          console.error('Error fetching user data:', error);
+      try {
+        const userResponse = await axios.get(
+          `https://douvledorm.com/userUp?username=${username}`
+        );
+        console.log("Fetching user data for:", username);
+        console.log("User data:", userResponse.data);
+    
+        if (userResponse.data && userResponse.data.length > 0) {
+          setProfileImg(userResponse.data[0][2]);
+          console.log("Profile image URL:", userResponse.data[0][2]);
+    
         }
-      
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
     };
 
     fetchUserData();
@@ -116,7 +118,7 @@ const UserProfile = () => {
         </div>
         <div className="grid grid-cols-3 gap-8 mt-8">
           {filteredPins.map((pin) => (
-            user && user.name === pin.username && (
+            username === pin.username && (
             <a href={`/post/${pin.id}`} key={pin.id} className="bg-white rounded-md shadow-md">
               <div className="relative">
               {user && user.name === pin.username && (
