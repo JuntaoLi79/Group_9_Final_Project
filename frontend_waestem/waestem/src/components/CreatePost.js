@@ -181,7 +181,14 @@ const handleRecommendation = async (e) => {
           AI Recommendation
         </button>
         {typing ? <p>Thinking... (It will take a few minutes)</p> : null }
-        {recommendations && <p>{recommendations}</p>}
+        {recommendations && (
+  <div className="bg-gray-800 text-white rounded-lg p-4 mt-4 overflow-auto max-h-64 min-h-32"
+  style={{ maxHeight: '40vh', minHeight: '20vh', marginTop: '2rem' }}
+  >
+    <p>{recommendations}</p>
+  </div>
+)}
+
     </div>
   )
 }

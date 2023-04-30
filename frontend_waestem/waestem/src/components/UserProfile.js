@@ -75,7 +75,9 @@ const UserProfile = () => {
         console.error(error);
       }
     };
-  
+    const handlePostClick = (pin) => {
+      navigate('/viewpost', { state: { pin } });
+    };
   
     const filteredPins = pins.filter((pin) => {
       const searchLower = search.toLowerCase();
@@ -117,16 +119,28 @@ const UserProfile = () => {
           />
         </div>
         <div className="grid grid-cols-3 gap-8 mt-8">
-          {filteredPins.map((pin) => (
-            username === pin.username && (
-            <a href={`/post/${pin.id}`} key={pin.id} className="bg-white rounded-md shadow-md">
+      {filteredPins.map((pin) => (
+        username === pin.username && (
+          <div key={pin.id} className="relative">
+            <button
+              className="bg-white rounded-md shadow-md w-full h-full"
+              onClick={() => handlePostClick(pin)}
+            >
               <div className="relative">
-              {user && user.name === pin.username && (
-              <FaTrash
-      className="absolute top-2 right-2 text-red-500 cursor-pointer"
-      onClick={() => handleDelete(pin.id)}
-    />)}
-                <img src={`data:image/png;base64,${pin.image}`} alt={pin.title} className="w-full rounded-t-md" />
+                {user && user.name === pin.username && (
+                  <FaTrash
+                    className="absolute top-2 right-2 text-red-500 cursor-pointer z-10"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(pin.id);
+                    }}
+                  />
+                )}
+                <img
+                  src={`data:image/png;base64,${pin.image}`}
+                  alt={pin.title}
+                  className="w-full rounded-t-md"
+                />
                 <img
                   className="rounded-full border-2 border-white absolute bottom-0 left-0 ml-4 mb-4"
                   src={pin.user_image}
@@ -139,9 +153,12 @@ const UserProfile = () => {
                 <p className="text-gray-500 text-sm mb-1">{pin.location}</p>
                 <p className="text-gray-700 text-sm">{pin.description}</p>
               </div>
-            </a>)
-          ))}
-        </div>
+            </button>
+          </div>
+        )
+      ))}
+    </div>
+
       </div>
     );
   };
