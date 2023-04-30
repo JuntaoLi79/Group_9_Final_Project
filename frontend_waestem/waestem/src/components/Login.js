@@ -4,27 +4,26 @@ import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import UserContext from './UserContext';
 import logo from '../images/logo1.png'; 
+import { createClient } from 'pexels';
+
 const Login = () => {
   const [data, setData] = useState([{}]);
   const { setUser } = useContext(UserContext);
   const [videoUrl, setVideoUrl] = useState('');
   const navigate = useNavigate();
   const getRandomVideo = async () => {
-    const response = await axios.get('https://api.pexels.com/videos/search', {
-      headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_PEXELS_API_KEY}`,
-      },
-      params: {
-        query: 'travel',
-        orientation: 'landscape',
-        per_page: 10,
-        min_width: 1920,
-        min_height: 1080,
-      },
+    const client = createClient(process.env.REACT_APP_PEXELS_API_KEY);
+    const response = await client.videos.search({
+      query: 'travel',
+      orientation: 'landscape',
+      per_page: 10,
+      min_width: 1920,
+      min_height: 1080,
     });
-    const randomIndex = Math.floor(Math.random() * response.data.videos.length);
-    return response.data.videos[randomIndex].video_files[0].link; 
+    const randomIndex = Math.floor(Math.random() * response.videos.length);
+    return response.videos[randomIndex].video_files[0].link;
   };
+  
 
   const handlePost = async (userObject) => {
     const { name, picture: img, email } = userObject;

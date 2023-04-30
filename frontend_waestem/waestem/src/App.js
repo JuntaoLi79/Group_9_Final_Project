@@ -25,7 +25,7 @@ const App = () => {
             <Route path="profiles" element={<Profiles />} />
             <Route path="create_post" element={<CreatePost />} />
             <Route path="pin_board" element={<PinBoard />} />
-            <Route path={`user/${user?.name}`}  element={<UserProfile />} />
+            <Route path="user/:username" element={<UserProfile />} />
             <Route path="view_post" element={<ViewPost />} />
             <Route path="privacy" element={<Privacy />} />
           </Routes>
