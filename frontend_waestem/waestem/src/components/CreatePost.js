@@ -104,7 +104,7 @@ const handleRecommendation = async (e) => {
     console.log(formData)
     try {
       console.log(formData);
-      await axios.post(' http://82.180.160.49/posts', formData);
+      await axios.post(' https://douvledorm.com/posts', formData);
       alert('Post created successfully!');
       navigate('/pin_board');
     } catch (error) {

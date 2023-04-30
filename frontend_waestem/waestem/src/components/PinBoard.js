@@ -13,7 +13,7 @@ const PinBoard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://82.180.160.49//posts').then((response) => {
+    axios.get('https://douvledorm.com//posts').then((response) => {
       setPins(response.data);
     });
   }, []);

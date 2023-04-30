@@ -20,13 +20,13 @@ const UserProfile = () => {
     }, [user, navigate])
   
     useEffect(() => {
-      axios.get(`http://82.180.160.49/posts?username=${user?.name}`).then((response) => {
+      axios.get(`https://douvledorm.com/posts?username=${user?.name}`).then((response) => {
         setPins(response.data);
       });
     }, [user]);
     const handleDelete = async (id) => {
       try {
-        await axios.delete(`http://82.180.160.49//posts/${id}`);
+        await axios.delete(`https://douvledorm.com//posts/${id}`);
         setPins(pins.filter((pin) => pin.id !== id));
         alert('Post deleted successfully!')
       } catch (error) {
