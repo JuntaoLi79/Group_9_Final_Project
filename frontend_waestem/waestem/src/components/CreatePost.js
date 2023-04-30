@@ -104,7 +104,7 @@ const handleRecommendation = async (e) => {
     console.log(formData)
     try {
       console.log(formData);
-      await axios.post(' http://82.180.160.49/posts', formData);
+      await axios.post(' https://douvledorm.com/posts', formData);
       alert('Post created successfully!');
       navigate('/pin_board');
     } catch (error) {
@@ -181,7 +181,14 @@ const handleRecommendation = async (e) => {
           AI Recommendation
         </button>
         {typing ? <p>Thinking... (It will take a few minutes)</p> : null }
-        {recommendations && <p>{recommendations}</p>}
+        {recommendations && (
+  <div className="bg-gray-800 text-white rounded-lg p-4 mt-4 overflow-auto max-h-64 min-h-32"
+  style={{ maxHeight: '40vh', minHeight: '20vh', marginTop: '2rem' }}
+  >
+    <p>{recommendations}</p>
+  </div>
+)}
+
     </div>
   )
 }
