@@ -27,7 +27,7 @@ const Home = () => {
       <div className="absolute inset-0 bg-black opacity-25"></div>
       <div className="absolute inset-0 flex flex-col justify-center items-center">
         <img src={logo} alt="logo" border="0" className="w-1/4" />
-        <h1 className="text-5xl font-bold text-white mb-10">Welcome!</h1>
+        <h1 className="text-5xl font-bold text-white mb-10">Welcome to Waestem!</h1>
         <div className="flex space-x-4">
           <button className="bg-white text-black py-3 px-6 rounded-lg font-bold shadow-lg" onClick={handleViewPostsClick}>
             View Posts
