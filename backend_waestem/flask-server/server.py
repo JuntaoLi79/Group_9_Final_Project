@@ -74,8 +74,12 @@ def userUp():
         finally:
             cur.close()
     elif request.method == 'GET':
+        username = request.args.get('username')
         cur = mysql.connection.cursor()
-        cur.execute('''SELECT * FROM travelers''')
+        if username:
+            cur.execute('''SELECT * FROM travelers WHERE name = %s''', (username,))
+        else:
+            cur.execute('''SELECT * FROM travelers''')
         rv = cur.fetchall()
         return jsonify(rv)
     return "No Data"

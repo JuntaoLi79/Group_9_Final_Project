@@ -1,32 +1,73 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import UserContext from './UserContext';
 import { FaTrash } from 'react-icons/fa';
 
 const UserProfile = () => {
-    const { user } = useContext(UserContext);
-    const [pins, setPins] = useState([]);
-    const [search, setSearch] = useState('');
-    const [imageLoaded, setImageLoaded] = useState(false);
-  
-    const navigate = useNavigate();
+  const { user } = useContext(UserContext);
+  const { username } = useParams();
+  console.log("username from useParams:", username);
+  const [pins, setPins] = useState([]);
+  const [search, setSearch] = useState('');
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [profileImg, setProfileImg] = useState('');
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      alert('You must be logged in to view this page');
+      navigate('/login');
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userResponse = await axios.get(
+          `https://douvledorm.com/userUp?username=${username}`
+        );
+        console.log("Fetching user data for:", username);
+        console.log("User data:", userResponse.data);
     
-    useEffect(() => {
-      if (!user) {
-        alert('You must be logged in to view this page');
-        navigate('/login');
+        if (userResponse.data && userResponse.data.length > 0) {
+          setProfileImg(userResponse.data[0][2]);
+          console.log("Profile image URL:", userResponse.data[0][2]);
+    
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
       }
-    }, [user, navigate])
+    };
+
+    fetchUserData();
+    
+  }, [username]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+        try {
+          const formattedUsername = username.replace(/ /g, '%20');
+          const pinsResponse = await axios.get(`https://douvledorm.com/posts?username=${formattedUsername}`);
+          setPins(pinsResponse.data);
+          console.log('Fetching posts for:', username);
+          console.log('Posts data:', pinsResponse.data);
+        } catch (error) {
+          console.error('Error fetching posts:', error);
+        } finally {
+          setLoading(false);
+        }
+      
+    };
+
+    fetchPosts();
+  }, [username]);
   
-    useEffect(() => {
-      axios.get(`http://82.180.160.49/posts?username=${user?.name}`).then((response) => {
-        setPins(response.data);
-      });
-    }, [user]);
+  
     const handleDelete = async (id) => {
       try {
-        await axios.delete(`http://82.180.160.49//posts/${id}`);
+        await axios.delete(`https://douvledorm.com//posts/${id}`);
         setPins(pins.filter((pin) => pin.id !== id));
         alert('Post deleted successfully!')
       } catch (error) {
@@ -34,7 +75,9 @@ const UserProfile = () => {
         console.error(error);
       }
     };
-  
+    const handlePostClick = (pin) => {
+      navigate('/viewpost', { state: { pin } });
+    };
   
     const filteredPins = pins.filter((pin) => {
       const searchLower = search.toLowerCase();
@@ -51,14 +94,19 @@ const UserProfile = () => {
   
     return (
       <div className="relative">
+      {loading && (
+  <div className="flex justify-center items-center h-screen">
+    <p>Loading...</p>
+  </div>
+)}
         <div className="flex justify-center items-center h-screen">
           <div className={`rounded-full border-4 border-white h-64 w-64 overflow-hidden ${imageLoaded ? 'animate-fade-in' : ''}`}>
-            <img 
-              src={user?.img} 
-              alt={user?.name} 
-              onLoad={handleImageLoad}
-              className="h-full w-full object-cover"
-            />
+          <img 
+            src={profileImg} 
+            alt={username} 
+            onLoad={handleImageLoad}
+            className="h-full w-full object-cover"
+          />
           </div>
         </div>
         <div className="mx-auto max-w-lg pt-4">
@@ -71,14 +119,28 @@ const UserProfile = () => {
           />
         </div>
         <div className="grid grid-cols-3 gap-8 mt-8">
-          {filteredPins.map((pin) => (
-            <a href={`/post/${pin.id}`} key={pin.id} className="bg-white rounded-md shadow-md">
+      {filteredPins.map((pin) => (
+        username === pin.username && (
+          <div key={pin.id} className="relative">
+            <button
+              className="bg-white rounded-md shadow-md w-full h-full"
+              onClick={() => handlePostClick(pin)}
+            >
               <div className="relative">
-              <FaTrash
-      className="absolute top-2 right-2 text-red-500 cursor-pointer"
-      onClick={() => handleDelete(pin.id)}
-    />
-                <img src={`data:image/png;base64,${pin.image}`} alt={pin.title} className="w-full rounded-t-md" />
+                {user && user.name === pin.username && (
+                  <FaTrash
+                    className="absolute top-2 right-2 text-red-500 cursor-pointer z-10"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(pin.id);
+                    }}
+                  />
+                )}
+                <img
+                  src={`data:image/png;base64,${pin.image}`}
+                  alt={pin.title}
+                  className="w-full rounded-t-md"
+                />
                 <img
                   className="rounded-full border-2 border-white absolute bottom-0 left-0 ml-4 mb-4"
                   src={pin.user_image}
@@ -91,9 +153,12 @@ const UserProfile = () => {
                 <p className="text-gray-500 text-sm mb-1">{pin.location}</p>
                 <p className="text-gray-700 text-sm">{pin.description}</p>
               </div>
-            </a>
-          ))}
-        </div>
+            </button>
+          </div>
+        )
+      ))}
+    </div>
+
       </div>
     );
   };
