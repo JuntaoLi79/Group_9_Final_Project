@@ -76,7 +76,7 @@ const UserProfile = () => {
       }
     };
     const handlePostClick = (pin) => {
-      navigate('/viewpost', { state: { pin } });
+      navigate('/view_post', { state: { pin } });
     };
   
     const filteredPins = pins.filter((pin) => {

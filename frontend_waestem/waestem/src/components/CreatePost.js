@@ -5,7 +5,6 @@ import UserContext from './UserContext';
 
 
 const OPENAI_API_KEY_CURRENT = process.env.REACT_APP_OPENAI_API_KEY;
-console.log('OPENAI_API_KEY_CURRENT:', OPENAI_API_KEY_CURRENT);
 const CreatePost = () => {
   const[typing, setTyping] = useState(false);
     const [title, setTitle] = useState('');
