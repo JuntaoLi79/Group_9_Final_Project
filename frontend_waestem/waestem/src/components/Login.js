@@ -33,7 +33,6 @@ const Login = () => {
   };
 
   function handleCallbackResponse(response) {
-    console.log('Encoded JWT ID token' + response.credential);
     var userObject = jwt_decode(response.credential);
     var name = userObject.name;
     var img = userObject.picture;
