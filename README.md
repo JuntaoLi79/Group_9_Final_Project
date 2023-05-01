@@ -6,6 +6,13 @@ The Travel Tracker App called **Waestem** is a web application that empowers use
 
 ## ** __Set Up & Notes__ ** 🛎️
 
+### V 3.0 🔥
+This will be the final version of the project. The following are some general notes.
+1. The app is fully deployed so one can go straight to https://waestem.com/ to experience the app. The backend is deployed to https://douvledorm.com. The frontend is deployed to https://waestem.com/.
+2. Google Identity Service is verified and implemented.
+3. Fixed the user profile page.
+4. Now the user can click on any profile picture to access user profile.
+
 ### V 2.0 🎑
 Watch this [delieverable 2](https://www.youtube.com/watch?v=VvlTre4nJ5o&t=3s) here to walk over this project with Shane. The following are some general notes.
 1. The backend now is deployed to public IP address at https://douvledorm.com. So you don't need to run the backend locally. The react app is also deployed at http://waestem.com/ as a preliminary version. But you still need to run the frontend locally to experience the authentication feature because the public application needs to be verified by Google.
@@ -59,7 +66,7 @@ The Travel Tracker App will be built using a 3-tier architecture, consisting of 
 ## Technology Stack 📚
 Front-end Technologies: HTML, CSS, React, JavaScript  
 
-Back-end Technologies: Python, Flask  
+Back-end Technologies: Python, Flask, VSP server (AlmaLinux 9 64 bits)
 
 Front-end: React, TailwindCSS  
 
@@ -67,7 +74,7 @@ Library/Package: MasonryLayout, react-router-dom, GoogleLogin, etc.
 
 Database: MySQL/SQLite
 
-Hosting: Hostinger
+Hosting: Hostinger, Cloudflare
 
 ## Team Members 👥
 
