@@ -25,7 +25,8 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
-
+./frontend_waestem/waestem/node_modules/
+frontend_waestem/waestem/node_modules/
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
@@ -153,3 +154,5 @@ dmypy.json
 cython_debug/
 
 .idea
+/frontend_waestem/waestem/node_modules
+/frontend_waestem/waestem/node_modules
